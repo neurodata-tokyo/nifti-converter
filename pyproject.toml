@@ -1,0 +1,12 @@
+[project]
+name = "nifti-converter"
+version = "0.1.0"
+description = "Convert NIfTI files to PNG images"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "nibabel>=5.2.1",
+    "numpy>=2.1.1",
+    "pillow>=10.4.0",
+    "typer>=0.12.5",
+]
