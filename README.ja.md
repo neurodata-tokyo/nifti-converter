@@ -1,5 +1,7 @@
 # NIfTI Converter
 
+[English](README.md)
+
 このツールは、NIfTI形式の画像ファイルをPNG形式の画像ファイル群に変換するコマンドラインアプリケーションです。
 
 ## 必要条件
