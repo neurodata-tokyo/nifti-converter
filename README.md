@@ -1,48 +1,50 @@
 # NIfTI Converter
 
-このツールは、NIfTI形式の画像ファイルをPNG形式の画像ファイル群に変換するコマンドラインアプリケーションです。
+[日本語](README.ja.md)
 
-## 必要条件
+This tool is a command-line application that converts NIfTI format image files to a set of PNG format image files.
 
-- Python 3.11以上
+## Requirements
+
+- Python 3.11 or higher
 - [uv](https://docs.astral.sh/uv/)
 
-## インストール
+## Installation
 
-1. このリポジトリをクローンまたはダウンロードします
-2. 依存関係をインストールします:
+1. Clone or download this repository
+2. Install dependencies:
 ```sh
 uv sync
 ```
 
-## 使い方
+## Usage
 
-### NIfTIからPNGへの変換
+### Converting NIfTI to PNG
 
 ```sh
 python nii2iseq.py -i <input_file> [-o <output_directory>] [--prefix <prefix>]
 ```
 
-オプション:
-- `-i`, `--input`: NIfTIファイルのパス
-- `-o`, `--output`: ファイルを出力するディレクトリ（オプション）
-- `--prefix`: 出力ファイル名のプレフィックス（オプション）
+Options:
+- `-i`, `--input`: Path to the NIfTI file
+- `-o`, `--output`: Directory to output files (optional)
+- `--prefix`: Prefix for output file names (optional)
 
-出力ディレクトリを指定しない場合、デフォルトで入力ファイル名（拡張子を除く）のディレクトリが使用されます。
+If no output directory is specified, a directory named after the input file (without extension) will be used by default.
 
-### PNGからNIfTIへの変換
+### Converting PNG to NIfTI
 
 ```sh
 python iseq2nii.py -i <input_directory> [-o <output_file>]
 ```
 
-オプション:
-- `-i`, `--input`: 入力PNGディレクトリのパス
-- `-o`, `--output`: ファイルの出力先（オプション）
+Options:
+- `-i`, `--input`: Path to the input PNG directory
+- `-o`, `--output`: Output file destination (optional)
 
-出力ファイル名を指定しない場合、デフォルトで入力ディレクトリ名に拡張子を付けたものが使用されます。
+If no output file name is specified, the input directory name with an extension will be used by default.
 
-## 注意事項
+## Notes
 
-- このツールは3次元のNIfTIファイルのみをサポートしています。4次元以上のデータを含むファイルはエラーとなります。
-- 各スライスは`<prefix><XXX>.png`という形式で保存されます（XXXは000から始まる3桁の数字）。
+- This tool only supports 3D NIfTI files. Files containing 4D or higher dimensional data will result in an error.
+- Each slice is saved in the format `<prefix><XXX>.png` (where XXX is a 3-digit number starting from 000).
