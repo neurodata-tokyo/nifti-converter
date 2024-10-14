@@ -20,7 +20,7 @@ uv sync
 ### NIfTIからPNGへの変換
 
 ```sh
-python n2p.py -i <input_file> [-o <output_directory>] [--prefix <prefix>]
+python nii2iseq.py -i <input_file> [-o <output_directory>] [--prefix <prefix>]
 ```
 
 オプション:
@@ -33,7 +33,7 @@ python n2p.py -i <input_file> [-o <output_directory>] [--prefix <prefix>]
 ### PNGからNIfTIへの変換
 
 ```sh
-python p2n.py -i <input_directory> [-o <output_file>]
+python iseq2nii.py -i <input_directory> [-o <output_file>]
 ```
 
 オプション:
