@@ -1,4 +1,5 @@
 import os
+from typing import Annotated
 import typer
 import nibabel as nib
 import numpy as np
@@ -9,20 +10,23 @@ app = typer.Typer()
 
 @app.command()
 def convert_nifti_to_png(
-    input_file: str = typer.Option(
-        ..., "--input", "-i", help="Path to the input NIfTI file"
-    ),
-    output_dir: str | None = typer.Option(
-        None,
-        "--output",
-        "-o",
-        help="Directory to output files (default is input filename without extension)",
-    ),
-    prefix: str = typer.Option(
-        "",
-        "--prefix",
-        help="Prefix for output PNG filenames (default is '')",
-    ),
+    input_file: Annotated[
+        str, typer.Option("--input", "-i", help="Path to the input NIfTI file")
+    ],
+    output_dir: Annotated[
+        str | None,
+        typer.Option(
+            "--output",
+            "-o",
+            help="Directory to output files (default is input filename without extension)",
+        ),
+    ] = None,
+    prefix: Annotated[
+        str,
+        typer.Option(
+            "--prefix", help="Prefix for output PNG filenames (default is '')"
+        ),
+    ] = "",
 ):
     # NIfTI to PNG conversion process
     # Load NIfTI file
@@ -53,7 +57,7 @@ def convert_nifti_to_png(
 
         # Save as PNG image using PIL
         img = Image.fromarray(slice_data)
-        img.save(os.path.join(output_dir, f"{prefix}{i:03d}.png"))
+        img.save(os.path.join(output_dir, f"{prefix}{i:03d}.png"), format="")
 
     typer.echo(f"Saved {input_file} as PNG files in {output_dir}.")
 

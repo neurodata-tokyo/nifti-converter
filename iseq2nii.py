@@ -1,4 +1,5 @@
 import os
+from typing import Annotated
 import typer
 import nibabel as nib
 import numpy as np
@@ -9,13 +10,17 @@ app = typer.Typer()
 
 @app.command()
 def convert_png_to_nifti(
-    input_dir: str = typer.Option(..., "--input", "-i", help="Path to PNG directory"),
-    output_file: str | None = typer.Option(
-        None,
-        "--output",
-        "-o",
-        help="Output destination for NIfTI file (default is input folder name + '.nii')",
-    ),
+    input_dir: Annotated[
+        str, typer.Option("--input", "-i", help="Path to PNG directory")
+    ],
+    output_file: Annotated[
+        str | None,
+        typer.Option(
+            "--output",
+            "-o",
+            help="Output destination for NIfTI file (default is input folder name + '.nii')",
+        ),
+    ] = None,
 ):
     # PNG to NIfTI conversion process
     png_files = sorted([f for f in os.listdir(input_dir) if f.endswith(".png")])
