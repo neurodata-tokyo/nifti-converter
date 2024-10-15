@@ -2,7 +2,7 @@
 
 [日本語](README.ja.md)
 
-This tool is a command-line application that converts NIfTI format image files to a set of PNG format image files.
+This tool is a command-line application that converts between NIfTI format image files and common image file formats (PNG, TIFF, etc.).
 
 ## Requirements
 
@@ -19,7 +19,7 @@ uv sync
 
 ## Usage
 
-### Converting NIfTI to PNG
+### Converting NIfTI to image sequence
 
 ```sh
 python nii2iseq.py -i <input_file> [-o <output_directory>] [--prefix <prefix>]
@@ -32,14 +32,14 @@ Options:
 
 If no output directory is specified, a directory named after the input file (without extension) will be used by default.
 
-### Converting PNG to NIfTI
+### Converting image sequence to NIfTI
 
 ```sh
 python iseq2nii.py -i <input_directory> [-o <output_file>]
 ```
 
 Options:
-- `-i`, `--input`: Path to the input PNG directory
+- `-i`, `--input`: Path to the input image directory
 - `-o`, `--output`: Output file destination (optional)
 
 If no output file name is specified, the input directory name with an extension will be used by default.
@@ -47,4 +47,4 @@ If no output file name is specified, the input directory name with an extension 
 ## Notes
 
 - This tool only supports 3D NIfTI files. Files containing 4D or higher dimensional data will result in an error.
-- Each slice is saved in the format `<prefix><XXX>.png` (where XXX is a 3-digit number starting from 000).
+- Each slice is saved in the format `<prefix><XXX>.<format>` (where XXX is a 3-digit number starting from 000).

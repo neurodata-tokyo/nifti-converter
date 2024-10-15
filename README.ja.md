@@ -2,7 +2,7 @@
 
 [English](README.md)
 
-このツールは、NIfTI形式の画像ファイルをPNG形式の画像ファイル群に変換するコマンドラインアプリケーションです。
+このツールは、NIfTI形式の画像ファイルと一般的な画像ファイル形式（PNG、TIFF等）の間で変換を行うコマンドラインアプリケーションです。
 
 ## 必要条件
 
@@ -20,7 +20,7 @@ uv sync
 
 ## 使い方
 
-### NIfTIからPNGへの変換
+### NIfTIから画像列への変換
 
 ```sh
 python nii2iseq.py -i <input_file> [-o <output_directory>] [--prefix <prefix>]
@@ -33,14 +33,14 @@ python nii2iseq.py -i <input_file> [-o <output_directory>] [--prefix <prefix>]
 
 出力ディレクトリを指定しない場合、デフォルトで入力ファイル名（拡張子を除く）のディレクトリが使用されます。
 
-### PNGからNIfTIへの変換
+### 画像列からNIfTIへの変換
 
 ```sh
 python iseq2nii.py -i <input_directory> [-o <output_file>]
 ```
 
 オプション:
-- `-i`, `--input`: 入力PNGディレクトリのパス
+- `-i`, `--input`: 入力画像ディレクトリのパス
 - `-o`, `--output`: ファイルの出力先（オプション）
 
 出力ファイル名を指定しない場合、デフォルトで入力ディレクトリ名に拡張子を付けたものが使用されます。
@@ -48,4 +48,4 @@ python iseq2nii.py -i <input_directory> [-o <output_file>]
 ## 注意事項
 
 - このツールは3次元のNIfTIファイルのみをサポートしています。4次元以上のデータを含むファイルはエラーとなります。
-- 各スライスは`<prefix><XXX>.png`という形式で保存されます（XXXは000から始まる3桁の数字）。
+- 各スライスは`<prefix><XXX>.<format>`という形式で保存されます（XXXは000から始まる3桁の数字）。

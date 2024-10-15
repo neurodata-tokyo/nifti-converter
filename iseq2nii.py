@@ -1,3 +1,4 @@
+from enum import Enum
 import os
 from typing import Annotated
 import typer
@@ -9,9 +10,9 @@ app = typer.Typer()
 
 
 @app.command()
-def convert_png_to_nifti(
+def convert_images_to_nifti(
     input_dir: Annotated[
-        str, typer.Option("--input", "-i", help="Path to PNG directory")
+        str, typer.Option("--input", "-i", help="Path to images directory")
     ],
     output_file: Annotated[
         str | None,
@@ -22,11 +23,11 @@ def convert_png_to_nifti(
         ),
     ] = None,
 ):
-    # PNG to NIfTI conversion process
-    png_files = sorted([f for f in os.listdir(input_dir) if f.endswith(".png")])
+    # Images to NIfTI conversion process
+    image_files = sorted([f for f in os.listdir(input_dir)])
     slices = []
-    for png_file in png_files:
-        img = Image.open(os.path.join(input_dir, png_file))
+    for image_file in image_files:
+        img = Image.open(os.path.join(input_dir, image_file))
         slice_data = np.array(img)
         slices.append(slice_data)
     nifti_data = np.stack(slices, axis=-1)

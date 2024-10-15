@@ -1,3 +1,4 @@
+from enum import Enum
 import os
 from typing import Annotated
 import typer
@@ -8,8 +9,13 @@ from PIL import Image
 app = typer.Typer()
 
 
+class ImageFormat(str, Enum):
+    png = "png"
+    tiff = "tiff"
+
+
 @app.command()
-def convert_nifti_to_png(
+def convert_nifti_to_images(
     input_file: Annotated[
         str, typer.Option("--input", "-i", help="Path to the input NIfTI file")
     ],
@@ -21,6 +27,14 @@ def convert_nifti_to_png(
             help="Directory to output files (default is input filename without extension)",
         ),
     ] = None,
+    format: Annotated[
+        ImageFormat,
+        typer.Option(
+            "--format",
+            "-f",
+            help="Image format (default is png)",
+        ),
+    ] = ImageFormat.png,
     prefix: Annotated[
         str,
         typer.Option(
@@ -57,7 +71,10 @@ def convert_nifti_to_png(
 
         # Save as PNG image using PIL
         img = Image.fromarray(slice_data)
-        img.save(os.path.join(output_dir, f"{prefix}{i:03d}.png"), format="")
+        img.save(
+            os.path.join(output_dir, f"{prefix}{i:03d}.{format.value}"),
+            format=format.value,
+        )
 
     typer.echo(f"Saved {input_file} as PNG files in {output_dir}.")
 
