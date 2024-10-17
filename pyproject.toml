@@ -10,3 +10,11 @@ dependencies = [
     "pillow>=10.4.0",
     "typer>=0.12.5",
 ]
+
+[project.scripts]
+nii2iseq = "nifti_converter:nii2iseq_app"
+iseq2nii = "nifti_converter:iseq2nii_app"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

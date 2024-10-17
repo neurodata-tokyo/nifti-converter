@@ -6,7 +6,6 @@ This tool is a command-line application that converts between NIfTI format image
 
 ## Requirements
 
-- Python 3.11 or higher
 - [uv](https://docs.astral.sh/uv/)
 
 ## Installation
@@ -22,7 +21,7 @@ uv sync
 ### Converting NIfTI to image sequence
 
 ```sh
-python nii2iseq.py -i <input_file> [-o <output_directory>] [--prefix <prefix>]
+uv run nii2iseq -i <input_file> [-o <output_directory>] [--prefix <prefix>]
 ```
 
 Options:
@@ -35,7 +34,7 @@ If no output directory is specified, a directory named after the input file (wit
 ### Converting image sequence to NIfTI
 
 ```sh
-python iseq2nii.py -i <input_directory> [-o <output_file>]
+uv run iseq2nii -i <input_directory> [-o <output_file>]
 ```
 
 Options:
