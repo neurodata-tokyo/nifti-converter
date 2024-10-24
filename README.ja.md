@@ -6,7 +6,6 @@
 
 ## 必要条件
 
-- Python 3.11以上
 - [uv](https://docs.astral.sh/uv/)
 
 ## インストール
@@ -23,7 +22,7 @@ uv sync
 ### NIfTIから画像列への変換
 
 ```sh
-python nii2iseq.py -i <input_file> [-o <output_directory>] [--prefix <prefix>]
+uv run nii2iseq -i <input_file> [-o <output_directory>] [--prefix <prefix>]
 ```
 
 オプション:
@@ -36,7 +35,7 @@ python nii2iseq.py -i <input_file> [-o <output_directory>] [--prefix <prefix>]
 ### 画像列からNIfTIへの変換
 
 ```sh
-python iseq2nii.py -i <input_directory> [-o <output_file>]
+uv run iseq2nii -i <input_directory> [-o <output_file>]
 ```
 
 オプション:
