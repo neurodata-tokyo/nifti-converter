@@ -1,8 +1,24 @@
 [project]
 name = "nifti-converter"
 version = "0.1.0"
-description = "Convert NIfTI files to PNG images"
+description = "Convert NIfTI files to usual image formats"
+authors = [{ name = "Neurodata.tokyo", email = "contact@neurodata.tokyo" }]
+keywords = ["nifti", "nii", "image"]
 readme = "README.md"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Science/Research",
+    "Operating System :: OS Independent",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+    "Topic :: Scientific/Engineering :: Image Processing",
+]
 requires-python = ">=3.11"
 dependencies = [
     "nibabel>=5.2.1",
@@ -10,6 +26,9 @@ dependencies = [
     "pillow>=10.4.0",
     "typer>=0.12.5",
 ]
+
+[project.urls]
+Repository = "https://github.com/neurodata-tokyo/nifti-converter"
 
 [project.scripts]
 nii2iseq = "nifti_converter:nii2iseq_app"
