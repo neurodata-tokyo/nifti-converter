@@ -1,21 +1,14 @@
 # NIfTI Converter
 
-[English](README.md)
+<!-- PyPIから飛べるように絶対パスを指定 -->
+[English](https://github.com/neurodata-tokyo/nifti-converter/blob/main/README.md)
 
 このツールは、NIfTI形式の画像ファイルと一般的な画像ファイル形式（PNG、TIFF等）の間で変換を行うコマンドラインアプリケーションです。
 
-## 必要条件
-
-- Python 3.11以上
-- [uv](https://docs.astral.sh/uv/)
-
 ## インストール
 
-1. このリポジトリをクローンまたはダウンロードします
-2. 依存関係をインストールします:
-
 ```sh
-uv sync
+pip install nifti-converter
 ```
 
 ## 使い方
@@ -23,29 +16,54 @@ uv sync
 ### NIfTIから画像列への変換
 
 ```sh
-python nii2iseq.py -i <input_file> [-o <output_directory>] [--prefix <prefix>]
+nii2iseq -i <input_file> [-o <output_directory>] [--prefix <prefix>]
 ```
 
 オプション:
 - `-i`, `--input`: NIfTIファイルのパス
-- `-o`, `--output`: ファイルを出力するディレクトリ（オプション）
-- `--prefix`: 出力ファイル名のプレフィックス（オプション）
+- `-o`, `--output`: ファイルを出力するディレクトリ（デフォルト: 入力ファイル名（拡張子を除く）と同名）
+- `--prefix`: 出力ファイル名のプレフィックス（デフォルト: ""）
+- `-f`, `--format`: 出力ファイルの形式（デフォルト: png）
 
-出力ディレクトリを指定しない場合、デフォルトで入力ファイル名（拡張子を除く）のディレクトリが使用されます。
+#### 注意事項
+
+- 3次元のNIfTIファイルのみをサポートしています。4次元以上のデータを含むファイルはエラーとなります。
+- 出力ファイルの形式はpngとtiffのみ対応しています。
+- 各スライスは`<prefix><XXX>.<format>`という形式で保存されます（XXXは000から始まる3桁の数字）。
 
 ### 画像列からNIfTIへの変換
 
 ```sh
-python iseq2nii.py -i <input_directory> [-o <output_file>]
+iseq2nii -i <input_directory> [-o <output_file>]
 ```
 
 オプション:
 - `-i`, `--input`: 入力画像ディレクトリのパス
-- `-o`, `--output`: ファイルの出力先（オプション）
+- `-o`, `--output`: ファイルの出力先（デフォルト: "<入力ディレクトリ名>.nii"）
 
-出力ファイル名を指定しない場合、デフォルトで入力ディレクトリ名に拡張子を付けたものが使用されます。
+## 開発者向け
 
-## 注意事項
+### 前提条件
 
-- このツールは3次元のNIfTIファイルのみをサポートしています。4次元以上のデータを含むファイルはエラーとなります。
-- 各スライスは`<prefix><XXX>.<format>`という形式で保存されます（XXXは000から始まる3桁の数字）。
+- [uv](https://docs.astral.sh/uv/)
+
+### インストール
+
+1. このリポジトリをクローンします
+2. 依存関係をインストールします:
+
+```sh
+cd nifti-converter
+uv sync
+```
+
+### 動作確認
+
+修正したアプリをローカルで実行するには以下のコマンドを実行します。
+
+```sh
+# NIfTIから画像列への変換
+uv run nii2iseq -i <input_file> [-o <output_directory>] [--prefix <prefix>]
+# 画像列からNIfTIへの変換
+uv run iseq2nii -i <input_directory> [-o <output_file>]
+```

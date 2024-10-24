@@ -1,20 +1,14 @@
 # NIfTI Converter
 
-[日本語](README.ja.md)
+<!-- Specify absolute path to allow navigation from PyPI -->
+[日本語](https://github.com/neurodata-tokyo/nifti-converter/blob/main/README.ja.md)
 
 This tool is a command-line application that converts between NIfTI format image files and common image file formats (PNG, TIFF, etc.).
 
-## Requirements
-
-- Python 3.11 or higher
-- [uv](https://docs.astral.sh/uv/)
-
 ## Installation
 
-1. Clone or download this repository
-2. Install dependencies:
 ```sh
-uv sync
+pip install nifti-converter
 ```
 
 ## Usage
@@ -22,29 +16,54 @@ uv sync
 ### Converting NIfTI to image sequence
 
 ```sh
-python nii2iseq.py -i <input_file> [-o <output_directory>] [--prefix <prefix>]
+nii2iseq -i <input_file> [-o <output_directory>] [--prefix <prefix>]
 ```
 
 Options:
 - `-i`, `--input`: Path to the NIfTI file
-- `-o`, `--output`: Directory to output files (optional)
-- `--prefix`: Prefix for output file names (optional)
+- `-o`, `--output`: Directory to output files (default: same name as input file without extension)
+- `--prefix`: Prefix for output file names (default: "")
+- `-f`, `--format`: Output file format (default: png)
 
-If no output directory is specified, a directory named after the input file (without extension) will be used by default.
+#### Notes
+
+- This tool only supports 3D NIfTI files. Files containing 4D or higher dimensional data will result in an error.
+- Only png and tiff formats are supported for output files.
+- Each slice is saved in the format `<prefix><XXX>.<format>` (where XXX is a 3-digit number starting from 000).
 
 ### Converting image sequence to NIfTI
 
 ```sh
-python iseq2nii.py -i <input_directory> [-o <output_file>]
+iseq2nii -i <input_directory> [-o <output_file>]
 ```
 
 Options:
 - `-i`, `--input`: Path to the input image directory
-- `-o`, `--output`: Output file destination (optional)
+- `-o`, `--output`: Output file destination (default: "<input_directory_name>.nii")
 
-If no output file name is specified, the input directory name with an extension will be used by default.
+## For Developers
 
-## Notes
+### Prerequisites
 
-- This tool only supports 3D NIfTI files. Files containing 4D or higher dimensional data will result in an error.
-- Each slice is saved in the format `<prefix><XXX>.<format>` (where XXX is a 3-digit number starting from 000).
+- [uv](https://docs.astral.sh/uv/)
+
+### Installation
+
+1. Clone this repository
+2. Install dependencies:
+
+```sh
+cd nifti-converter
+uv sync
+```
+
+### Testing
+
+To run the modified application locally, execute the following command:
+
+```sh
+# Converting NIfTI to image sequence
+uv run nii2iseq -i <input_file> [-o <output_directory>] [--prefix <prefix>]
+# Converting image sequence to NIfTI
+uv run iseq2nii -i <input_directory> [-o <output_file>]
+```

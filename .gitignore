@@ -1,4 +1,9 @@
 # macOS
 .DS_Store
 
+# Python
+__pycache__
+dist
+
+# Data
 data
